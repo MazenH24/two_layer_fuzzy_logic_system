@@ -1,4 +1,3 @@
-
 import math
 import data
 import matplotlib.pyplot as plt
@@ -11,19 +10,19 @@ def calculate_membership(value, table_name):
     :return: membership value along with the linguistic variable
     """
     table = {}
-    if table_name == 'HV':
+    if table_name == 'HV':  # House value
         table = data.market_value_of_houses_ms
-    elif table_name == 'HL':
+    elif table_name == 'HL':  # House Location
         table = data.location_of_houses_ms
-    elif table_name == 'AA':
+    elif table_name == 'AA':  # Applicant Asset
         table = data.assets_of_applicant_ms
-    elif table_name == 'IA':
+    elif table_name == 'IA':  # Applicant income
         table = data.income_of_applicant_ms
-    elif table_name == 'HE':
+    elif table_name == 'HE':  # House
         table = data.house_ms
-    elif table_name == 'AE':
+    elif table_name == 'AE':  # Applicant
         table = data.applicant_ms
-    elif table_name == 'I':
+    elif table_name == 'I':  # Interest
         table = data.interest_ms
     membership_values = []
     for key in table.keys():
@@ -79,7 +78,7 @@ def find_min(combinations, evaluation_table):
     :return: linguistic variable, membership value pair extracted from rule set according to larsen inference method
     """
     result = []
-    if evaluation_table == 'HE':
+    if evaluation_table == 'HE':  # House Evaluation
         for combination in combinations:
             if combination[0][0] == 'low':
                 result.append(('low', combination[0][1]))
@@ -87,11 +86,11 @@ def find_min(combinations, evaluation_table):
                 result.append(('low', combination[1][1]))
             result.append((data.house_evaluation_rule_set[combination[1][0]][combination[0][0]],
                            min(combination[0][1], combination[1][1])))
-    elif evaluation_table == 'AE':
+    elif evaluation_table == 'AE':  # Applicant Evaluation
         for combination in combinations:
             result.append((data.applicant_evaluation_rule_set[combination[0][0]][combination[1][0]],
                            min(combination[0][1], combination[1][1])))
-    elif evaluation_table == 'CE':
+    elif evaluation_table == 'CE':  # Credit Evaluation
         for combination in combinations:
             if combination[2][0] == 'low':
                 result.append(('very_low', combination[2][1]))
@@ -139,11 +138,11 @@ def larsen_inference_evaluation(memberships, table):
     :return: fuzzy number, membership pairs according to larsen inference method
     """
     numbers = {}
-    if table == 'HMS':
+    if table == 'HMS':  # House memberships
         numbers = data.house_ms
-    elif table == 'AMS':
+    elif table == 'AMS':  # Applicant memberships
         numbers = data.applicant_ms
-    elif table == 'CMS':
+    elif table == 'CMS':  # Credit memberships
         numbers = data.credit_amount_ms
     triangular_numbers = []
     for membership in memberships:
@@ -290,7 +289,7 @@ def find_x(point_left, point_right, area, half_area):
         else:
             return x2
     else:
-        return (half_area - area + line[1]*point_left[0]) / line[1]
+        return (half_area - area + line[1] * point_left[0]) / line[1]
 
 
 def find_x_of_half_area(points, half_of_area):
